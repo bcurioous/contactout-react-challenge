@@ -28,31 +28,36 @@
 
 .sideBarAvatar:hover + .sideBarAvatarPopover {
   display: block;
+}
+
+.popOver{
+  border-radius: 2px;
   position: absolute;
 }
 
 .sideBarAvatarPopover {
+  composes: popOver;
   display: none;
   height: 200px;
   width: 200px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: rgb(255, 255, 255);
 
-  position: absolute;
-  bottom: -40px;
-  left: 3.8rem;
+  bottom: -35px;
+  left: 4.3rem;
 }
 
 .leftBottom {
+  composes: popOver;
+  height: 12px;
+  width: 12px;
   background-color: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   border-left: 1px solid rgba(0, 0, 0, 0.3);
   bottom: 32px;
-  height: 16px;
   left: 0px;
-  position: absolute;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 16px;
+  /* transform: translate(-50%, -50%) rotate(45deg); */
+  transform: rotateX(59deg) rotateY(177deg) rotateZ(225deg) translate(0px, 10px);
 }
 
 .main {
