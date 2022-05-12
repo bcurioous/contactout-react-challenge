@@ -1,31 +1,63 @@
 .container {
-  padding: 0 2rem;
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 4rem;
+  background-color: #100c1d;
+  position: relative;
+}
+
+.sidebarTop {
+  background: red;
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+}
+
+.sidebarBottom {
+  background: white;
+  position: absolute;
+  bottom: 10rem;
+  width: 100%;
+}
+.sideBarAvatarRelative {
+  position: relative;
+}
+
+.sideBarAvatar:hover + .sideBarAvatarPopover {
+  display: block;
+  position: absolute;
+}
+
+.sideBarAvatarPopover {
+  display: none;
+  height: 200px;
+  width: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgb(255, 255, 255);
+
+  position: absolute;
+  bottom: -40px;
+  left: 3.8rem;
+}
+
+.leftBottom {
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
+  bottom: 32px;
+  height: 16px;
+  left: 0px;
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 16px;
 }
 
 .main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-grow: 1;
+  overflow: auto;
 }
 
 .title a {
