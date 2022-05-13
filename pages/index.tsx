@@ -6,6 +6,11 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   const arr = Array.from({ length: 100 }, (_, index) => index + 1);
 
+  const userProfile = {
+    name: "Steve Wozniak",
+    avatar: "/images/Steve_Wozniak.jpeg",
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -24,10 +29,21 @@ const Home: NextPage = () => {
           <div>Search</div>
         </div>
         <div className={styles.sidebarBottom}>
-          <div className={styles.sideBarAvatar}>Avatar</div>
-          <div className={styles.sideBarAvatarPopover}>
-            <div className={styles.leftBottom}></div>
-            <div>Popover Popover Popover Popover</div>
+          <div className={styles.avatarWrapper}>
+            <div className={styles.avatar}>
+              <Image
+                layout="raw"
+                width={64}
+                height={64}
+                className={styles.avatarImage}
+                alt={userProfile.name}
+                src={userProfile.avatar}
+              />
+            </div>
+            <div className={styles.avatarPopover}>
+              <div className={styles.leftBottom}></div>
+              {/* <div>Popover Popover Popover Popover</div> */}
+            </div>
           </div>
         </div>
       </aside>
