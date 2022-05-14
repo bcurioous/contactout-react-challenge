@@ -1,15 +1,26 @@
+import * as React from "react";
+
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const [avatarPopoverVisible, setAvatarPopoverVisible] = React.useState(false);
+
+  const onAvatarPopoverToggle = React.useCallback(() => {
+    console.log("clicked :>> ");
+    setAvatarPopoverVisible((avatarPopoverVisible) => !avatarPopoverVisible);
+  }, []);
+
   const arr = Array.from({ length: 100 }, (_, index) => index + 1);
 
   const userProfile = {
     name: "Steve Wozniak",
     avatar: "/images/Steve_Wozniak.jpeg",
   };
+
+  console.log("avatarPopoverVisible :>> ", avatarPopoverVisible);
 
   return (
     <div className={styles.container}>
@@ -30,7 +41,11 @@ const Home: NextPage = () => {
         </div>
         <div className={styles.sidebarBottom}>
           <div className={styles.avatarWrapper}>
-            <div className={styles.avatar}>
+            <div
+              className={styles.avatar}
+              role="button"
+              onClick={onAvatarPopoverToggle}
+            >
               <Image
                 layout="raw"
                 width={64}
@@ -40,9 +55,42 @@ const Home: NextPage = () => {
                 src={userProfile.avatar}
               />
             </div>
-            <div className={styles.avatarPopover}>
+            <div
+              className={`${
+                avatarPopoverVisible ? styles.avatarPopoverShow + " " : ""
+              }${styles.avatarPopover}`}
+            >
               <div className={styles.leftBottom}></div>
-              {/* <div>Popover Popover Popover Popover</div> */}
+              <div className={styles.card}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.avatar}>
+                    <Image
+                      layout="raw"
+                      width={64}
+                      height={64}
+                      className={styles.avatarImage}
+                      alt={userProfile.name}
+                      src={userProfile.avatar}
+                    />
+                  </div>
+                  <strong>{userProfile.name}</strong>
+                </div>
+                <div className={styles.cardContent}>
+                  <div className={styles.avatarPopoverMenus}>
+                    <ul>
+                      <li>Account</li>
+                      <li>Your Exports</li>
+                      <li>Integrations</li>
+                      <li>Logout</li>
+                    </ul>
+                    <ul>
+                      <li>L2 : l2.1</li>
+                      <li>L2 : l2.2</li>
+                      <li>L2 : l2.3</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
