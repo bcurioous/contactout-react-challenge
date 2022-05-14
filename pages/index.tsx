@@ -4,12 +4,156 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+interface ISubMenu {
+  type: "submenus";
+  menus: Array<Menu>;
+}
+interface IDialog {
+  type: "dialog";
+  dialog: string;
+}
+interface IRedirection {
+  type: "redirection";
+  redirect: string;
+}
+interface IFunction {
+  type: "function";
+  function: string;
+}
+
+interface Menu {
+  id: string;
+  title: string;
+  operation: ISubMenu | IDialog | IRedirection | IFunction;
+}
+
+const USER_AVATAR_MENUS: Array<Menu> = [
+  {
+    id: "account-menu",
+    title: "Account",
+    operation: {
+      type: "submenus",
+      menus: [
+        {
+          id: "account-personal-data",
+          title: "Personal Data",
+          operation: {
+            type: "dialog",
+            dialog: "ShowPersonalDataDialog",
+          },
+        },
+
+        {
+          id: "account-submenu-2",
+          title: "SubMenu Level 2",
+          operation: {
+            type: "submenus",
+            menus: [
+              {
+                id: "account-submenu-2-link1",
+                title: "SubMenu2-Link1",
+                operation:{
+                  type: "redirection",
+                  redirect: "/some/thing1"
+                }
+              },
+              {
+                id: "account-submenu-2-link2",
+                title: "SubMenu2-Link--2",
+                operation:{
+                  type: "redirection",
+                  redirect: "/some/thing2"
+                }
+              },
+              {
+                id: "account-submenu-2-link3",
+                title: "SubMenu2-Link--3",
+                operation:{
+                  type: "redirection",
+                  redirect: "/some/thing3"
+                }
+              },
+            ],
+          },
+        },
+        {
+          id: "account-change-email",
+          title: "Change Email",
+          operation: {
+            type: "redirection",
+            redirect: "/auth/changeEmail",
+          },
+        },
+        {
+          id: "account-change-password",
+          title: "Change Password",
+          operation: {
+            type: "redirection",
+            redirect: "/auth/changePassword",
+          },
+        },
+      ],
+    },
+  },
+  {
+    id: "export-menu",
+    title: "Your Exports",
+    operation: {
+      type: "redirection",
+      redirect: "/exports",
+    },
+  },
+  {
+    id: "integration-menu",
+    title: "Integration",
+    operation: {
+      type: "redirection",
+      redirect: "/integrations",
+    },
+  },
+];
+
+const Menus = ({ items }: { items: Array<Menu> }) => {
+  const [subMenus, setSubMenus] = React.useState<Array<Menu>>();
+
+  const onMenuClick = React.useCallback((menu: Menu) => {
+    // console.log("onMenuClick :>> ", menu);
+    switch (menu.operation.type) {
+      case "submenus":
+        setSubMenus(menu.operation.menus);
+        break;
+      case "redirection":
+        setSubMenus(undefined);
+        break;
+      case "dialog":
+        setSubMenus(undefined);
+        break;
+
+      default:
+        break;
+    }
+  }, []);
+
+  // console.log("submenus :>> ", subMenus);
+  return (
+    <>
+      <ul>
+        {items.map((menu) => (
+          <li key={menu.id} role="button" onClick={() => onMenuClick(menu)}>
+            {menu.title}
+          </li>
+        ))}
+      </ul>
+
+      {subMenus && subMenus.length && <Menus items={subMenus} />}
+    </>
+  );
+};
 
 const Home: NextPage = () => {
   const [avatarPopoverVisible, setAvatarPopoverVisible] = React.useState(false);
 
   const onAvatarPopoverToggle = React.useCallback(() => {
-    console.log("clicked :>> ");
     setAvatarPopoverVisible((avatarPopoverVisible) => !avatarPopoverVisible);
   }, []);
 
@@ -19,8 +163,6 @@ const Home: NextPage = () => {
     name: "Steve Wozniak",
     avatar: "/images/Steve_Wozniak.jpeg",
   };
-
-  console.log("avatarPopoverVisible :>> ", avatarPopoverVisible);
 
   return (
     <div className={styles.container}>
@@ -77,17 +219,7 @@ const Home: NextPage = () => {
                 </div>
                 <div className={styles.cardContent}>
                   <div className={styles.avatarPopoverMenus}>
-                    <ul>
-                      <li>Account</li>
-                      <li>Your Exports</li>
-                      <li>Integrations</li>
-                      <li>Logout</li>
-                    </ul>
-                    <ul>
-                      <li>L2 : l2.1</li>
-                      <li>L2 : l2.2</li>
-                      <li>L2 : l2.3</li>
-                    </ul>
+                    <Menus items={USER_AVATAR_MENUS} />
                   </div>
                 </div>
               </div>
@@ -96,7 +228,7 @@ const Home: NextPage = () => {
         </div>
       </aside>
 
-      <main className={styles.main}>
+      {/* <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
@@ -139,7 +271,7 @@ const Home: NextPage = () => {
         {arr.map((i) => (
           <div key={i}>something</div>
         ))}
-      </main>
+      </main> */}
     </div>
   );
 };
