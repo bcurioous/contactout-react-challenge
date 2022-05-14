@@ -2,7 +2,9 @@ import * as React from "react";
 
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import Image from "next/image";
+
 import styles from "../styles/Home.module.css";
 interface ISubMenu {
   type: "submenus";
@@ -52,26 +54,26 @@ const USER_AVATAR_MENUS: Array<Menu> = [
               {
                 id: "account-submenu-2-link1",
                 title: "SubMenu2-Link1",
-                operation:{
+                operation: {
                   type: "redirection",
-                  redirect: "/some/thing1"
-                }
+                  redirect: "/some/thing1",
+                },
               },
               {
                 id: "account-submenu-2-link2",
                 title: "SubMenu2-Link--2",
-                operation:{
+                operation: {
                   type: "redirection",
-                  redirect: "/some/thing2"
-                }
+                  redirect: "/some/thing2",
+                },
               },
               {
                 id: "account-submenu-2-link3",
                 title: "SubMenu2-Link--3",
-                operation:{
+                operation: {
                   type: "redirection",
-                  redirect: "/some/thing3"
-                }
+                  redirect: "/some/thing3",
+                },
               },
             ],
           },
@@ -113,7 +115,13 @@ const USER_AVATAR_MENUS: Array<Menu> = [
   },
 ];
 
-const Menus = ({ items }: { items: Array<Menu> }) => {
+const Menus = ({
+  items,
+  children,
+}: {
+  children?: React.ReactElement;
+  items: Array<Menu>;
+}) => {
   const [subMenus, setSubMenus] = React.useState<Array<Menu>>();
 
   const onMenuClick = React.useCallback((menu: Menu) => {
@@ -143,6 +151,7 @@ const Menus = ({ items }: { items: Array<Menu> }) => {
             {menu.title}
           </li>
         ))}
+        {children}
       </ul>
 
       {subMenus && subMenus.length && <Menus items={subMenus} />}
@@ -157,7 +166,21 @@ const Home: NextPage = () => {
     setAvatarPopoverVisible((avatarPopoverVisible) => !avatarPopoverVisible);
   }, []);
 
-  const arr = Array.from({ length: 100 }, (_, index) => index + 1);
+  const onAwayClick = React.useCallback(
+    // (e: React.MouseEvent<HTMLElement>) => {
+    (e: any) => {
+      console.log("e :>> ", e);
+      if (
+        e?.target?.offsetParent?.id !== "avatar-popover" &&
+        e?.target?.id !== "avatar-menu"
+      ) {
+        setAvatarPopoverVisible(false);
+      }
+    },
+    []
+  );
+
+  const SomeLargeContent = Array.from({ length: 100 }, (_, index) => index + 1);
 
   const userProfile = {
     name: "Steve Wozniak",
@@ -165,9 +188,9 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onAwayClick}>
       <Head>
-        <title>Contactout</title>
+        <title>ContactOut</title>
         <meta
           name="description"
           content="Contactout : World's best contact search engine"
@@ -177,9 +200,48 @@ const Home: NextPage = () => {
 
       <aside className={styles.sidebar}>
         <div className={styles.sidebarTop}>
-          <div>Logo</div>
-          <div>Lists</div>
-          <div>Search</div>
+          <div>
+            <Link href="/">
+              <a>
+                <Image
+                  layout="raw"
+                  width={64}
+                  height={64}
+                  className={styles.nav}
+                  alt="Home"
+                  src="/images/contactout.webp"
+                />
+              </a>
+            </Link>
+          </div>
+          <div>
+            <Link href="/lists">
+              <a>
+                <Image
+                  layout="raw"
+                  width={64}
+                  height={64}
+                  className={styles.nav}
+                  alt="Home"
+                  src="/images/designing-layout.svg"
+                />
+              </a>
+            </Link>
+          </div>
+          <div>
+            <Link href="/search">
+              <a>
+                <Image
+                  layout="raw"
+                  width={64}
+                  height={64}
+                  className={styles.nav}
+                  alt="Home"
+                  src="/images/magnifying-glass.svg"
+                />
+              </a>
+            </Link>
+          </div>
         </div>
         <div className={styles.sidebarBottom}>
           <div className={styles.avatarWrapper}>
@@ -189,6 +251,7 @@ const Home: NextPage = () => {
               onClick={onAvatarPopoverToggle}
             >
               <Image
+                id="avatar-menu"
                 layout="raw"
                 width={64}
                 height={64}
@@ -198,6 +261,7 @@ const Home: NextPage = () => {
               />
             </div>
             <div
+              id="avatar-popover"
               className={`${
                 avatarPopoverVisible ? styles.avatarPopoverShow + " " : ""
               }${styles.avatarPopover}`}
@@ -219,7 +283,9 @@ const Home: NextPage = () => {
                 </div>
                 <div className={styles.cardContent}>
                   <div className={styles.avatarPopoverMenus}>
-                    <Menus items={USER_AVATAR_MENUS} />
+                    <Menus items={USER_AVATAR_MENUS}>
+                      <li>Logout</li>
+                    </Menus>
                   </div>
                 </div>
               </div>
@@ -228,6 +294,11 @@ const Home: NextPage = () => {
         </div>
       </aside>
 
+      <main className={styles.main}>
+        {SomeLargeContent.map((i) => (
+          <div key={i}>something</div>
+        ))}
+      </main>
       {/* <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
