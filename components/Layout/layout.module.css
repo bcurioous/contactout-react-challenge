@@ -10,10 +10,41 @@
 }
 
 .sidebarTop {
-  background: red;
   position: absolute;
   top: 1rem;
   width: 100%;
+}
+
+.sidebarNav {
+  list-style-type: none;
+  margin: 0.2em;
+  padding: 0;
+}
+
+.sidebarNav > li.sidebarNavSelected{
+  background: #6552ff;
+}
+
+.sidebarNav > li {
+  width: 80px;
+  height: 80px;
+  border: 2px;
+  background: #292535ff;
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+}
+.sidebarNav > li > a {
+  text-align: center;
+}
+.sidebarNav > li > a > p {
+  color: #ffffffc7;
+}
+
+.sidebarNav > li > a > svg {
+  fill: #929098ff;
 }
 
 .sidebarBottom {
@@ -46,25 +77,37 @@
   justify-content: center;
 }
 
+.avatarMenuWrapper {
+  border-right: 1px solid var(--border-color);
+}
+
+.avatarMenu {
+  list-style-type: none;
+  margin: 1em;
+  padding: 0;
+}
 
 .popOver {
-  border-radius: 2px;
+  border-radius: 0.3em;
   position: absolute;
 }
+
 div.avatarPopoverShow {
   visibility: visible;
 }
 .avatarPopover {
   composes: popOver;
   visibility: hidden;
-  height: 200px;
-  width: 300px;
+  /* height: 239px;
+  width: 250px; */
   position: absolute;
-  top: -50%;
-  left: 280%;
+  top: -50px;
+  left: 218px;
+
   transform: translate(-50%, -50%);
   background: white;
-  box-shadow: 0px 5px 15px 0px rgb(0 0 0 / 30%);
+  box-shadow: 0px 0px 2px 0px rgb(0 0 0 / 30%);
+  border: 1px solid #dee1e6;
 }
 
 .leftBottom {
@@ -77,6 +120,7 @@ div.avatarPopoverShow {
   transform: translate(-75%, -90%) rotate(90deg);
   overflow: hidden;
 }
+
 .leftBottom::after {
   content: "";
   position: absolute;
@@ -86,104 +130,68 @@ div.avatarPopoverShow {
   transform: translateX(-50%) translateY(-50%) rotate(45deg);
   top: 0;
   left: 50%;
-  box-shadow: 1px 1px 20px 0px rgb(0 0 0 / 60%);
+  box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 30%);
+  border-radius: 0 0 0.3em 0;
 }
 
 .card {
 }
+
 .cardHeader {
+  border-bottom: 2px solid var(--border-color);
 }
 
-.cardBody {
-}
-
-.avatarPopoverMenus {
+.cardHeader .cardUserInfo {
+  width: 250px;
   display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+}
+
+.cardUserName {
+  margin-left: 0.5em;
+  font-size: large;
+}
+
+.cardHeader img {
+  width: 48px;
+  height: 48px;
+  border: 2px double grey;
+}
+
+.cardContent < .avatarMenuWrapper {
+  display: flex;
+}
+
+.avatarMenuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: large;
+  width: 150px;
+  padding-bottom: 0.7em;
+}
+
+li.avatarMenuItemSelected > button {
+  font-weight: 600;
+  border-bottom: 3px solid var(--primary-color);
+}
+.avatarMenuItem > svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--primary-color);
+}
+
+button[type="button"].logout{
+  color: #2984ff;
+  font-size: large;
 }
 
 .main {
   flex-grow: 1;
   overflow: auto;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
-
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+  background: #F5F5F5;
+  padding: 1em;
 }
 
 @media (max-width: 600px) {

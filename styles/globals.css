@@ -1,3 +1,8 @@
+:root {
+  --primary-color: #33e175ff;
+  --border-color: #dee1e6;
+}
+
 html,
 body {
   padding: 0;
@@ -13,6 +18,7 @@ a {
 
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 
 button[type="button"] {
@@ -23,4 +29,9 @@ button[type="button"] {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  white-space: nowrap;
+}
+
+p{
+  margin: 0;
 }

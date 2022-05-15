@@ -1,8 +1,12 @@
 import React from "react";
+import styles from "./layout.module.css";
 
 type Props = {
   children?: React.ReactElement;
-  items: Array<Menu>;
+  items: Array<IMenu>;
+  visible?: boolean;
+  onMenuAdded?: Function;
+  onMenuRemoved?: Function;
 };
 
 interface ISubMenu {
@@ -28,42 +32,84 @@ export interface IMenu {
   operation: ISubMenu | IDialog | IRedirection | IFunction;
 }
 
-const Menus = ({ items, children }: Props) => {
-  const [subMenus, setSubMenus] = React.useState<Array<IMenu>>();
+const Menus = ({
+  items,
+  children,
+  visible,
+  onMenuAdded,
+  onMenuRemoved,
+}: Props) => {
+  const [subMenus, setSubMenus] = React.useState<{
+    menus: Array<IMenu>;
+    selected: string;
+  }>();
 
-  const onMenuClick = React.useCallback((menu: IMenu) => {
-    // console.log("onMenuClick :>> ", menu);
-    switch (menu.operation.type) {
-      case "submenus":
-        setSubMenus(menu.operation.menus);
-        break;
-      case "redirection":
-        setSubMenus(undefined);
-        break;
-      case "dialog":
-        setSubMenus(undefined);
-        break;
-
-      default:
-        break;
+  React.useEffect(() => {
+    if (!visible) {
+      setSubMenus(undefined);
+      onMenuRemoved && onMenuRemoved();
     }
-  }, []);
+  }, [visible, onMenuRemoved]);
+
+  const onMenuClick = React.useCallback(
+    (menu: IMenu) => {
+      console.log("onMenuClick :>> ", menu);
+      switch (menu.operation.type) {
+        case "submenus":
+          setSubMenus({ menus: menu.operation.menus, selected: menu.id });
+          onMenuAdded && onMenuAdded();
+          break;
+        case "redirection":
+          setSubMenus(undefined);
+          break;
+        case "dialog":
+          setSubMenus(undefined);
+          break;
+
+        default:
+          break;
+      }
+    },
+    [onMenuAdded]
+  );
 
   // console.log("submenus :>> ", subMenus);
   return (
     <>
-      <ul>
-        {items.map((menu) => (
-          <li key={menu.id} role="button" onClick={() => onMenuClick(menu)}>
-            {menu.title}
-          </li>
-        ))}
-        {children}
-      </ul>
-
-      {subMenus && subMenus.length && <Menus items={subMenus} />}
+      <div className={styles.avatarMenuWrapper}>
+        <ul className={styles.avatarMenu}>
+          {items.map((menu) => (
+            <li
+              key={menu.id}
+              className={`${styles.avatarMenuItem} ${
+                subMenus?.selected === menu.id
+                  ? styles.avatarMenuItemSelected
+                  : ""
+              }`}
+              onClick={() => onMenuClick(menu)}
+            >
+              <button type="button">{menu.title}</button>
+              {menu.operation.type === "submenus" && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  className={styles.avatarMenuItemSubMenuArrow}
+                >
+                  <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
+                </svg>
+              )}
+            </li>
+          ))}
+          {children}
+        </ul>
+      </div>
+      {subMenus?.menus && subMenus?.menus.length && (
+        <Menus items={subMenus.menus} onMenuAdded={onMenuAdded} onMenuRemoved={onMenuRemoved} />
+      )}
     </>
   );
 };
 
-export default Menus;
+export default React.memo(Menus);

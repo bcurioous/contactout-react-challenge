@@ -9,45 +9,45 @@ const USER_AVATAR_MENUS: Array<IMenu> = [
       menus: [
         {
           id: "account-personal-data",
-          title: "Personal Data",
+          title: "Personal data",
           operation: { type: "dialog", dialog: "ShowPersonalDataDialog" },
         },
-        {
-          id: "account-submenu-2",
-          title: "SubMenu Level 2",
-          operation: {
-            type: "submenus",
-            menus: [
-              {
-                id: "account-submenu-2-link1",
-                title: "SubMenu2-Link1",
-                operation: {
-                  type: "redirection",
-                  redirect: "/some/thing1",
-                },
-              },
-              {
-                id: "account-submenu-2-link2",
-                title: "SubMenu2-Link--2",
-                operation: {
-                  type: "redirection",
-                  redirect: "/some/thing2",
-                },
-              },
-              {
-                id: "account-submenu-2-link3",
-                title: "SubMenu2-Link--3",
-                operation: {
-                  type: "redirection",
-                  redirect: "/some/thing3",
-                },
-              },
-            ],
-          },
-        },
+        // {
+        //   id: "account-submenu-2",
+        //   title: "ML 2",
+        //   operation: {
+        //     type: "submenus",
+        //     menus: [
+        //       {
+        //         id: "account-submenu-2-link1",
+        //         title: "Link-1",
+        //         operation: {
+        //           type: "redirection",
+        //           redirect: "/some/thing1",
+        //         },
+        //       },
+        //       {
+        //         id: "account-submenu-2-link2",
+        //         title: "Link-2",
+        //         operation: {
+        //           type: "redirection",
+        //           redirect: "/some/thing2",
+        //         },
+        //       },
+        //       {
+        //         id: "account-submenu-2-link3",
+        //         title: "Link-3",
+        //         operation: {
+        //           type: "redirection",
+        //           redirect: "/some/thing3",
+        //         },
+        //       },
+        //     ],
+        //   },
+        // },
         {
           id: "account-change-email",
-          title: "Change Email",
+          title: "Change email",
           operation: {
             type: "redirection",
             redirect: "/auth/changeEmail",
@@ -55,7 +55,7 @@ const USER_AVATAR_MENUS: Array<IMenu> = [
         },
         {
           id: "account-change-password",
-          title: "Change Password",
+          title: "Change password",
           operation: {
             type: "redirection",
             redirect: "/auth/changePassword",
