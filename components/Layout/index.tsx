@@ -87,20 +87,18 @@ function Layout({ children }: Props) {
         </div>
         <div className={styles.sidebarBottom}>
           <div className={styles.avatarWrapper}>
-            <div
-              className={styles.avatar}
-              role="button"
-              onClick={onAvatarPopoverToggle}
-            >
-              <Image
-                id="avatar-menu"
-                layout="raw"
-                width={64}
-                height={64}
-                className={styles.avatarImage}
-                alt={userProfile.name}
-                src={userProfile.avatar}
-              />
+            <div className={styles.avatar} onClick={onAvatarPopoverToggle}>
+              <button type="button">
+                <Image
+                  id="avatar-menu"
+                  layout="raw"
+                  width={64}
+                  height={64}
+                  className={styles.avatarImage}
+                  alt={userProfile.name}
+                  src={userProfile.avatar}
+                />
+              </button>
             </div>
             <div
               id="avatar-popover"
@@ -126,7 +124,14 @@ function Layout({ children }: Props) {
                 <div className={styles.cardContent}>
                   <div className={styles.avatarPopoverMenus}>
                     <Menus items={USER_AVATAR_MENUS}>
-                      <li>Logout</li>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => alert("logout clicked")}
+                        >
+                          Logout
+                        </button>
+                      </li>
                     </Menus>
                   </div>
                 </div>
