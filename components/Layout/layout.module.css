@@ -101,8 +101,8 @@ div.avatarPopoverShow {
   /* height: 239px;
   width: 250px; */
   position: absolute;
-  top: -50px;
-  left: 218px;
+  bottom: 40px;
+  left: 21vw;
 
   transform: translate(-50%, -50%);
   background: white;

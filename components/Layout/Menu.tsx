@@ -47,9 +47,8 @@ const Menus = ({
   React.useEffect(() => {
     if (!visible) {
       setSubMenus(undefined);
-      onMenuRemoved && onMenuRemoved();
     }
-  }, [visible, onMenuRemoved]);
+  }, [visible]);
 
   const onMenuClick = React.useCallback(
     (menu: IMenu) => {
@@ -60,6 +59,7 @@ const Menus = ({
           onMenuAdded && onMenuAdded();
           break;
         case "redirection":
+          console.log("submenu on redirectoin :>> ", subMenus);
           setSubMenus(undefined);
           break;
         case "dialog":
@@ -70,7 +70,7 @@ const Menus = ({
           break;
       }
     },
-    [onMenuAdded]
+    [onMenuAdded, onMenuRemoved]
   );
 
   // console.log("submenus :>> ", subMenus);
@@ -106,7 +106,11 @@ const Menus = ({
         </ul>
       </div>
       {subMenus?.menus && subMenus?.menus.length && (
-        <Menus items={subMenus.menus} onMenuAdded={onMenuAdded} onMenuRemoved={onMenuRemoved} />
+        <Menus
+          items={subMenus.menus}
+          onMenuAdded={onMenuAdded}
+          onMenuRemoved={onMenuRemoved}
+        />
       )}
     </>
   );
