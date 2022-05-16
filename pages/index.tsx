@@ -4,8 +4,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 const Home: NextPage = () => {
-  const SomeLargeContent = Array.from({ length: 100 }, (_, index) => index + 1);
-
   return (
     <div>
       <Head>
@@ -19,9 +17,59 @@ const Home: NextPage = () => {
 
       <h1>Home Page</h1>
 
-      {SomeLargeContent.map((i) => (
-        <div key={i}>something</div>
-      ))}
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis
+        cupiditate officia ad necessitatibus quis. Totam, commodi. Repellendus
+        aut iste asperiores amet dicta, molestiae mollitia animi culpa?
+        Architecto quia labore magni!
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. At quasi
+        soluta sequi omnis repellat, explicabo vitae repellendus iure harum
+        praesentium eligendi ratione autem, quidem ipsam facere, quos doloremque
+        rem voluptas.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. At suscipit
+        voluptatum accusamus corrupti aliquid facere atque rem molestias?
+        Doloribus delectus sequi non consequuntur officiis, doloremque
+        reiciendis nisi explicabo rerum adipisci.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio eos
+        beatae in quam qui excepturi dolor dolores exercitationem, aliquam ipsum
+        debitis quasi? Minima non, dolore commodi iusto aspernatur sint in.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
+        consequatur dolor magnam quae veniam nesciunt totam doloribus debitis id
+        voluptates sed eaque amet pariatur, expedita animi ratione ducimus
+        temporibus voluptatem.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, laborum,
+        vero doloribus blanditiis quam suscipit saepe dolorem, assumenda dolores
+        voluptas iusto impedit illum quisquam natus quos et reiciendis cum
+        quidem.
+      </p>
+
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos,
+        voluptatem reprehenderit odio minima maiores enim dolorem suscipit
+        maxime ullam iure voluptatum ipsum sint, laudantium ut, quis beatae
+        molestiae odit quaerat.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas ab sunt
+        ipsum. Quos fugiat, debitis porro dolorem quasi, eligendi nesciunt nobis
+        ipsam atque, in quia ipsum totam vero iusto cupiditate?
+      </p>
     </div>
   );
 };

@@ -38,3 +38,8 @@ button[type="button"] {
 p{
   margin: 0;
 }
+
+main p{
+  margin: 2em;
+  padding: 2em;
+}
