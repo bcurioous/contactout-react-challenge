@@ -5,8 +5,6 @@ type Props = {
   children?: React.ReactElement;
   items: Array<IMenu>;
   visible?: boolean;
-  onMenuAdded?: Function;
-  onMenuRemoved?: Function;
 };
 
 interface ISubMenu {
@@ -32,13 +30,7 @@ export interface IMenu {
   operation: ISubMenu | IDialog | IRedirection | IFunction;
 }
 
-const Menus = ({
-  items,
-  children,
-  visible,
-  onMenuAdded,
-  onMenuRemoved,
-}: Props) => {
+const Menus = ({ items, children, visible }: Props) => {
   const [subMenus, setSubMenus] = React.useState<{
     menus: Array<IMenu>;
     selected: string;
@@ -50,28 +42,23 @@ const Menus = ({
     }
   }, [visible]);
 
-  const onMenuClick = React.useCallback(
-    (menu: IMenu) => {
-      console.log("onMenuClick :>> ", menu);
-      switch (menu.operation.type) {
-        case "submenus":
-          setSubMenus({ menus: menu.operation.menus, selected: menu.id });
-          onMenuAdded && onMenuAdded();
-          break;
-        case "redirection":
-          console.log("submenu on redirectoin :>> ", subMenus);
-          setSubMenus(undefined);
-          break;
-        case "dialog":
-          setSubMenus(undefined);
-          break;
+  const onMenuClick = React.useCallback((menu: IMenu) => {
+    console.log("onMenuClick :>> ", menu);
+    switch (menu.operation.type) {
+      case "submenus":
+        setSubMenus({ menus: menu.operation.menus, selected: menu.id });
+        break;
+      case "redirection":
+        setSubMenus(undefined);
+        break;
+      case "dialog":
+        setSubMenus(undefined);
+        break;
 
-        default:
-          break;
-      }
-    },
-    [onMenuAdded, onMenuRemoved]
-  );
+      default:
+        break;
+    }
+  }, []);
 
   // console.log("submenus :>> ", subMenus);
   return (
@@ -106,11 +93,7 @@ const Menus = ({
         </ul>
       </div>
       {subMenus?.menus && subMenus?.menus.length && (
-        <Menus
-          items={subMenus.menus}
-          onMenuAdded={onMenuAdded}
-          onMenuRemoved={onMenuRemoved}
-        />
+        <Menus items={subMenus.menus} />
       )}
     </>
   );

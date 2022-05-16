@@ -1,12 +1,51 @@
 .container {
   display: flex;
-  height: 100vh;
+  height: 100%;
+}
+
+@media only screen and (max-width: 400px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .sidebar {
   width: 88px;
-  background-color: #100c1d;
-  position: relative;
+  background-color: var(--main-nav-color);
+  position: fixed;
+  height: 100%;
+}
+
+.topNavSmallScreen {
+  display: none;
+}
+
+@media only screen and (max-width: 400px) {
+  .sidebar {
+    display: none;
+  }
+  .topNavSmallScreen {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: var(--main-nav-color);
+    padding: 0 1em;
+    position: sticky;
+    top: 0;
+  }
+  .topNavLeft {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 130px;
+  }
 }
 
 .sidebarTop {
@@ -21,7 +60,7 @@
   padding: 0;
 }
 
-.sidebarNav > li.sidebarNavSelected{
+.sidebarNav > li.sidebarNavSelected {
   background: #6552ff;
 }
 
@@ -44,7 +83,7 @@
 }
 
 .sidebarNav > li > a > svg {
-  fill: #929098ff;
+  fill: #929098;
 }
 
 .sidebarBottom {
@@ -98,16 +137,25 @@ div.avatarPopoverShow {
 .avatarPopover {
   composes: popOver;
   visibility: hidden;
-  /* height: 239px;
-  width: 250px; */
-  position: absolute;
+  /* height: 239px; */
+  width: 368px; 
+  position: fixed;
   bottom: 40px;
-  left: 21vw;
+  left: 275px;
 
   transform: translate(-50%, -50%);
   background: white;
   box-shadow: 0px 0px 2px 0px rgb(0 0 0 / 30%);
   border: 1px solid #dee1e6;
+}
+
+@media only screen and (max-width: 400px) {
+  .avatarPopover {
+    top: 195px;
+    left: 50%;
+    width: 95%;
+    bottom: unset;
+  }
 }
 
 .leftBottom {
@@ -119,6 +167,16 @@ div.avatarPopoverShow {
   left: 0;
   transform: translate(-75%, -90%) rotate(90deg);
   overflow: hidden;
+}
+
+@media only screen and (max-width: 400px) {
+  .leftBottom {
+    top: 0;
+    right: 9%;
+    bottom: unset;
+    left: unset;
+    transform: translate(-75%, -100%) rotate(180deg);
+  }
 }
 
 .leftBottom::after {
@@ -182,7 +240,7 @@ li.avatarMenuItemSelected > button {
   fill: var(--primary-color);
 }
 
-button[type="button"].logout{
+button[type="button"].logout {
   color: #2984ff;
   font-size: large;
 }
@@ -190,13 +248,15 @@ button[type="button"].logout{
 .main {
   flex-grow: 1;
   overflow: auto;
-  background: #F5F5F5;
+  background: #f5f5f5;
   padding: 1em;
+  width: 100%;
+  margin-left: 88px;
 }
 
-@media (max-width: 600px) {
-  .grid {
+@media only screen and (max-width: 400px) {
+  .main {
     width: 100%;
-    flex-direction: column;
+    margin: 0;
   }
 }

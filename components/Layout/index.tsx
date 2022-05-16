@@ -4,69 +4,67 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import Menus from "./Menu";
-
-import USER_AVATAR_MENUS from "./userAvatarMenus";
-
 import styles from "./layout.module.css";
+import UserAvatarMenu from "./UserAvatarMenu";
 
 type Props = {
   children?: React.ReactElement;
 };
 
-const userProfile = {
-    name: "Steve Wozniak",
-    avatar: "/images/Steve_Wozniak.jpeg",
-  };
-
-  
 function Layout({ children }: Props) {
   const router = useRouter();
 
-  console.log("router :>> ", router);
-
   const popOverMenuContainerRef = React.useRef<HTMLDivElement>(null);
 
-  const [avatarPopoverVisible, setAvatarPopoverVisible] = React.useState(true);
+  const [avatarPopoverVisible, setAvatarPopoverVisible] = React.useState(false);
 
   const onAvatarPopoverToggle = React.useCallback(() => {
     setAvatarPopoverVisible((avatarPopoverVisible) => !avatarPopoverVisible);
   }, []);
 
-  const onAwayClick = React.useCallback(
-    // (e: React.MouseEvent<HTMLElement>) => {
-    (e: any) => {
-      console.log("e :>> ", e);
-      if (
-        e?.target?.offsetParent?.id !== "avatar-popover" &&
-        e?.target?.id !== "avatar-menu"
-      ) {
-        setAvatarPopoverVisible(false);
-      }
-    },
-    []
-  );
-
-  const onMenuAdded = () => {
-    const popOverContainerDOM = popOverMenuContainerRef.current;
-    if (popOverContainerDOM) {
-      const oldLeft = getComputedStyle(popOverContainerDOM).left;
-      popOverContainerDOM.style.left = `${parseInt(oldLeft) + 56}px`;
+  const onAwayClick = React.useCallback((e: any) => {
+    if (
+      e?.target?.offsetParent?.id !== "avatar-popover" &&
+      e?.target?.id !== "avatar-menu"
+    ) {
+      setAvatarPopoverVisible(false);
     }
-    console.log("onMenuAdded :>> ");
-  };
+  }, []);
 
-  const onMenuRemoved = () => {
-    console.log("onMenuRemoved :>> ");
-    const popOverContainerDOM = popOverMenuContainerRef.current;
-    if (popOverContainerDOM) {
-      //   popOverContainerDOM.style.left = "218px";
-    }
-  };
-
-  
   return (
     <div className={styles.container} onClick={onAwayClick}>
+      <nav className={styles.topNavSmallScreen}>
+        <div>
+          <Link href="/">
+            <a>
+              <Image
+                layout="raw"
+                width={48}
+                height={48}
+                className={styles.nav}
+                alt="Home"
+                src="/images/contactout.webp"
+              />
+            </a>
+          </Link>
+        </div>
+        <div className={styles.topNavLeft}>
+          <UserAvatarMenu
+            visible={avatarPopoverVisible}
+            onAvatarPopoverToggle={onAvatarPopoverToggle}
+          />
+          <div>
+            <Image
+              layout="raw"
+              width={30}
+              height={30}
+              className={styles.nav}
+              alt="Home"
+              src="/images/bar.svg"
+            />
+          </div>
+        </div>
+      </nav>
       <aside className={styles.sidebar}>
         <div className={styles.sidebarTop}>
           <ul className={styles.sidebarNav}>
@@ -129,68 +127,10 @@ function Layout({ children }: Props) {
           </ul>
         </div>
         <div className={styles.sidebarBottom}>
-          <div className={styles.avatarWrapper}>
-            <div className={styles.avatar} onClick={onAvatarPopoverToggle}>
-              <button type="button">
-                <Image
-                  id="avatar-menu"
-                  layout="raw"
-                  width={64}
-                  height={64}
-                  className={styles.avatarImage}
-                  alt={userProfile.name}
-                  src={userProfile.avatar}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div
-          id="avatar-popover"
-          ref={popOverMenuContainerRef}
-          className={`${
-            avatarPopoverVisible ? styles.avatarPopoverShow + " " : ""
-          }${styles.avatarPopover}`}
-        >
-          <div className={styles.leftBottom} />
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
-              <div className={styles.cardUserInfo}>
-                <Image
-                  layout="raw"
-                  width={36}
-                  height={36}
-                  className={styles.avatarImage}
-                  alt={userProfile.name}
-                  src={userProfile.avatar}
-                />
-                <strong className={styles.cardUserName}>
-                  {userProfile.name}
-                </strong>
-              </div>
-            </div>
-            <div className={styles.cardContent}>
-              <div style={{ display: "flex" }}>
-                <Menus
-                  items={USER_AVATAR_MENUS}
-                  visible={avatarPopoverVisible}
-                  onMenuAdded={onMenuAdded}
-                  onMenuRemoved={onMenuRemoved}
-                >
-                  <li>
-                    <button
-                      className={styles.logout}
-                      type="button"
-                      onClick={() => alert("logout clicked")}
-                    >
-                      Log out
-                    </button>
-                  </li>
-                </Menus>
-              </div>
-            </div>
-          </div>
+          <UserAvatarMenu
+            visible={avatarPopoverVisible}
+            onAvatarPopoverToggle={onAvatarPopoverToggle}
+          />
         </div>
       </aside>
 
